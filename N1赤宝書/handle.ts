@@ -25,9 +25,11 @@ tangoArr
       const reg2 = /　(\p{sc=Hiragana}+)/ug
       const reg3 = /\p{sc=Hiragana}/ug
       const res: string = 
-        line.replace(reg0, "$1<rt>$2</rt>") // 
-        .replace(reg1, '$1<rt>$2</rt>')
-        .replace(reg2, '$1<rt></rt>')
+        line.replace(reg0, "$1<rt>$2</rt>") // 平仮名処理
+        .replace(reg1, '$1<rt>$2</rt>') // 片仮名処理
+        .replace(reg2, '$1<rt></rt>') // 空白処理
+        .replace(/<rt><\/rt>(　)/, '$1') // 余った<rt></rt>削除
+        .replace(/([^　]+)/, '<ruby>$1</ruby>') // ruby タグラップ
         ; // 
       console.log(res);
     }
